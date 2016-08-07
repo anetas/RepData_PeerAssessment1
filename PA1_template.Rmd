@@ -11,6 +11,9 @@ The variables included in this dataset are:
 -date: The date on which the measurement was taken in YYYY-MM-DD format
 -interval: Identifier for the 5-minute interval in which measurement was taken
 The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=12, fig.height=8, fig.path="figure\\")
+```
 
 # Load the data from activity.csv file and prepare for processing. 
 ```{r}
@@ -39,7 +42,7 @@ steps_daily
 ##Histogram of daily steps
 2. A histogram of the total number of steps taken each day
 
-```{r}
+```{r Total_Steps}
 hist(steps_daily$steps, main = "Total Number of Steps Per Day", 
     xlab = "Total Number of Steps Per Day", ylab = "Frequency", 
     col = "blue")
@@ -62,7 +65,7 @@ median_steps
 1. A time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, 
 averaged across all days (y-axis).
 
-```{r}
+```{r Daily_Average}
 time_interval_data <- aggregate(steps ~ interval, data = my_activity, FUN = function(x) {
     mean(x, na.rm = TRUE)
 })
@@ -122,7 +125,7 @@ new_median_steps
 ```
 Histogram of the total number of steps taken each day
 
-```{r}
+```{r Total Steps 2}
 hist(new_steps_daily$steps, main = "Total Number of Steps Per Day", 
     xlab = "Total Number of Steps Per Day", ylab = "Frequency", 
     col = "gray")
@@ -146,7 +149,7 @@ head(my_new_activity)
 ```
 2. A panel plot of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis).
 
-```{r}
+```{r Weekend-Weekday}
 library(ggplot2)
 new_time_interval_data <- aggregate(steps ~ interval + day_type, data = my_new_activity, mean)
 
